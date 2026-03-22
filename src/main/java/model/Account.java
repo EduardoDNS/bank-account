@@ -4,13 +4,23 @@ public class Account {
 	
 	private double balance;
 	private double loan;
-	
-	public Account() {
-		
+	private final String id;
+
+	public Account(String id, double balance, double loan) {
+		this.id = id;
+		this.balance = balance;
+		this.loan = loan;
 	}
 
-	public Account(double balance, double loan) {
-		this.balance = balance;
+	public String getId() {
+		return id;
+	}
+
+	public double getLoan() {
+		return loan;
+	}
+
+	public void setLoan(double loan) {
 		this.loan = loan;
 	}
 

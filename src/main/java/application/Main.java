@@ -18,9 +18,12 @@ public class Main {
 			System.out.println("1 - criar conta");
 			System.out.println("2 - depositar");
 			System.out.println("3 - sacar");
-			System.out.println("4 - deletar conta");
+			System.out.println("4 - transferir");
+			System.out.println("5 - empréstimo");
+			System.out.println("6 - excluir conta");
+			System.out.println("0 - sair");
 			
-			Account account = new Account(0, 0);
+			Account account = new Account("0", 0, 0);
 			
 			try {
 				int x = Integer.parseInt(scan.nextLine());

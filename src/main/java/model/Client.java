@@ -3,28 +3,28 @@ package model;
 public class Client {
 	
 	private final String name;
-	private final int id;
-	private double money;
+	private final String id;
+	private double salary;
 	
-	public Client(String name, int id, double salary) {
+	public Client(String name, String id, double salary) {
 		this.name = name;
 		this.id = id;
-		this.money = salary;
+		this.salary = salary;
 	}
 
 	public double getSalary() {
-		return money;
+		return salary;
 	}
 
 	public void setSalary(double salary) {
-		this.money = salary;
+		this.salary = salary;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 }
