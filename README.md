@@ -14,6 +14,7 @@ A Java console application for practicing object-oriented programming and the de
 
 ## Project structure
 
+```text
 src/
 └── main/
     └── java/
@@ -24,6 +25,7 @@ src/
         │   └── Client.java
         └── service/
             └── AccountService.java
+```
 
 ## Planned functionality
 
