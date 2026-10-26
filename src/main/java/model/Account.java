@@ -1,27 +1,45 @@
 package model;
 
 public class Account {
-	
-	private double balance;
-	private double loan;
-	private final String id;
 
-	public Account(String id, double balance, double loan) {
+	private double balance;
+	private double loanLimit;
+	private double avaibleLoan;
+	private final int id;
+
+	public Account(int id, double loanLimit, double balance) {
 		this.id = id;
 		this.balance = balance;
-		this.loan = loan;
+		this.loanLimit = loanLimit;
+		avaibleLoan = loanLimit;
 	}
 
-	public String getId() {
+	public int getId(){
 		return id;
 	}
 
-	public double getLoan() {
-		return loan;
+	public double getLoanLimit() {
+		return loanLimit;
 	}
 
-	public void setLoan(double loan) {
-		this.loan = loan;
+	public void setLoanLimit(double loanLimit) {
+		if(loanLimit < 0) {
+			throw new RuntimeException("Negative loan");
+		}
+
+		this.loanLimit = loanLimit;
+	}
+
+	public double getAvaibleLoan() {
+		return avaibleLoan;
+	}
+
+	public void setAvaibleLoan(double avaibleLoan) {
+		if(avaibleLoan < 0) {
+			throw new RuntimeException("Negative loan");
+		}
+
+		this.avaibleLoan = avaibleLoan;
 	}
 
 	public double getBalance() {
@@ -29,6 +47,9 @@ public class Account {
 	}
 
 	public void setBalance(double balance) {
+		if(balance < 0){
+			throw new RuntimeException("Invalid withdraw amount");
+		}
 		this.balance = balance;
 	}
 }
