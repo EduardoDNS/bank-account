@@ -45,9 +45,9 @@ The exact Java version and build/run commands should be documented after they ha
 
 ## Roadmap
 
-- [ ] Fix the argument order used when creating accounts.
-- [ ] Complete the interactive menu and connect it to the service layer.
-- [ ] Prevent unvalidated direct changes to account balances and credit limits.
+- [✔] Fix the argument order used when creating accounts.
+- [✔] Complete the interactive menu and connect it to the service layer.
+- [✔] Prevent unvalidated direct changes to account balances and credit limits.
 - [ ] Use `BigDecimal` for monetary values.
 - [ ] Add unit tests for successful operations and invalid scenarios.
 - [ ] Document verified compilation and execution commands.
