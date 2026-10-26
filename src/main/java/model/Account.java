@@ -10,12 +10,12 @@ public class Account {
 	public Account(int id, double loanLimit, double balance) {
 		this.id = id;
 		if(balance < 0){
-			throw new RuntimeException("It impossible to create an account with negative balance.");
+			throw new IllegalArgumentException("It impossible to create an account with negative balance.");
 		}else{
 			this.balance = balance;
 		}
 		if(loanLimit < 0){
-			throw new RuntimeException("It impossible to create an account with negative loan limit.");
+			throw new IllegalArgumentException("It impossible to create an account with negative loan limit.");
 		}else{
 			this.loanLimit = loanLimit;
 			availableLoan = loanLimit;
@@ -36,7 +36,7 @@ public class Account {
 
 	public void deposit(double amount){
 		if(amount <= 0){
-			throw new RuntimeException("It impossible to deposit a negative amount.");
+			throw new IllegalArgumentException("It impossible to deposit a negative amount.");
 		}
 		else{
 			balance += amount;
@@ -45,10 +45,10 @@ public class Account {
 
 	public void withdraw(double amount){
 		if(amount <= 0){
-			throw new RuntimeException("It impossible to withdrawal a negative amount.");
+			throw new IllegalArgumentException("It impossible to withdrawal a negative amount.");
 		}
 		else if(balance - amount < 0){
-			throw new RuntimeException("Insufficient balance.");
+			throw new IllegalArgumentException("Insufficient balance.");
 		}
 		else{
 			balance -= amount;
@@ -57,7 +57,7 @@ public class Account {
 
 	public void loanLimitChange(double amount){
 		if(amount < 0){
-			throw new RuntimeException("Loan limit cannot be negative.");
+			throw new IllegalArgumentException("Loan limit cannot be negative.");
 		}
 
 		double usedLoan = loanLimit - availableLoan;
@@ -72,10 +72,10 @@ public class Account {
 
 	public void loan(double amount){
 		if(amount <= 0){
-			throw new RuntimeException("It impossible to loan a negative amount.");
+			throw new IllegalArgumentException("It impossible to loan a negative amount.");
 		}
 		else if(amount > loanLimit || amount > availableLoan){
-			throw new RuntimeException("Insufficient limit.");
+			throw new IllegalArgumentException("Insufficient limit.");
 		}
 		else{
 			balance += amount;

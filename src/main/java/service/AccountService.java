@@ -31,10 +31,10 @@ public class AccountService {
 		Account account = getIdOrThrow(id);
 
 		if (amount <= 0){
-			throw new RuntimeException("Negative balance.");
+			throw new IllegalArgumentException("Negative balance.");
 		}
 
-		account.setBalance(account.getBalance() + amount);
+		account.deposit(amount);
 
 	}
 
@@ -42,62 +42,62 @@ public class AccountService {
 		Account account = getIdOrThrow(id);
 
 		if (amount <= 0){
-			throw new RuntimeException("Valor invalido.");
+			throw new IllegalArgumentException("Valor invalido.");
 		}
 
 		if (account.getBalance() < amount) {
-			throw new RuntimeException("Saldo insuficiente.");
+			throw new IllegalArgumentException("Saldo insuficiente.");
 		}
 
-		account.setBalance(account.getBalance() - amount);
+		account.withdraw(amount);
 
 	}
 
 	public void transfer(int fromId, int toId, double amount) {
 		if (fromId == toId) {
-			throw new RuntimeException("Impossivel transferir para a mesma conta.");
+			throw new IllegalArgumentException("Impossivel transferir para a mesma conta.");
 		}
 
 		if (accounts.get(fromId) == null ||  accounts.get(toId) == null) {
-			throw new RuntimeException("Conta não encontrada.");
+			throw new IllegalArgumentException("Conta não encontrada.");
 		}
 
 		Account from = accounts.get(fromId);
 		Account to = accounts.get(toId);
 
 		if (amount <= 0){
-			throw new RuntimeException("Valor invalido.");
+			throw new IllegalArgumentException("Valor invalido.");
 		}
 
 		if (from.getBalance() < amount) {
-			throw new RuntimeException("Saldo insuficiente.");
+			throw new IllegalArgumentException("Saldo insuficiente.");
 		}
 
-		from.setBalance(from.getBalance() - amount);
-		to.setBalance(to.getBalance() + amount);
+		from.withdraw(amount);
+		to.deposit(amount);
 	}
 
 	public void loan(int id, double loan) {
 		Account account = getIdOrThrow(id);
 
 		if (loan <= 0) {
-			throw new RuntimeException("Invalid amount.");
+			throw new IllegalArgumentException("Invalid amount.");
 		}
 
 		if (account.getLoanLimit() < loan) {
-			throw new RuntimeException("Loan exceeds limit.");
+			throw new IllegalArgumentException("Loan exceeds limit.");
 		}
 
-		if (account.getAvaibleLoan() < loan){
-			throw new RuntimeException("Loan exceeds the available limit.");
+		if (account.getAvailableLoan() < loan){
+			throw new IllegalArgumentException("Loan exceeds the available limit.");
 		}
 
-		account.setBalance(account.getBalance() + loan);
-		account.setAvaibleLoan(account.getLoanLimit() - loan);
+		account.deposit(loan);
+		account.loan(loan);
 	}
 
 	public void delete(int id){
-		Account account = getIdOrThrow(id);
+		getIdOrThrow(id);
 
 		accounts.remove(id);
 	}
@@ -105,7 +105,7 @@ public class AccountService {
 	private Account getIdOrThrow(int id) {
 		Account account = accounts.get(id);
 		if (account == null) {
-			throw new RuntimeException("Conta não encontrada.");
+			throw new IllegalArgumentException("Conta não encontrada.");
 		}
 		return account;
 	}
