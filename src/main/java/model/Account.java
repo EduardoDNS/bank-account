@@ -4,14 +4,22 @@ public class Account {
 
 	private double balance;
 	private double loanLimit;
-	private double avaibleLoan;
+	private double availableLoan;
 	private final int id;
 
 	public Account(int id, double loanLimit, double balance) {
 		this.id = id;
-		this.balance = balance;
-		this.loanLimit = loanLimit;
-		avaibleLoan = loanLimit;
+		if(balance < 0){
+			throw new RuntimeException("It impossible to create an account with negative balance.");
+		}else{
+			this.balance = balance;
+		}
+		if(loanLimit < 0){
+			throw new RuntimeException("It impossible to create an account with negative loan limit.");
+		}else{
+			this.loanLimit = loanLimit;
+			availableLoan = loanLimit;
+		}
 	}
 
 	public int getId(){
@@ -22,34 +30,60 @@ public class Account {
 		return loanLimit;
 	}
 
-	public void setLoanLimit(double loanLimit) {
-		if(loanLimit < 0) {
-			throw new RuntimeException("Negative loan");
-		}
-
-		this.loanLimit = loanLimit;
+	public double getAvailableLoan() {
+		return availableLoan;
 	}
 
-	public double getAvaibleLoan() {
-		return avaibleLoan;
+	public void deposit(double amount){
+		if(amount <= 0){
+			throw new RuntimeException("It impossible to deposit a negative amount.");
+		}
+		else{
+			balance += amount;
+		}
 	}
 
-	public void setAvaibleLoan(double avaibleLoan) {
-		if(avaibleLoan < 0) {
-			throw new RuntimeException("Negative loan");
+	public void withdraw(double amount){
+		if(amount <= 0){
+			throw new RuntimeException("It impossible to withdrawal a negative amount.");
+		}
+		else if(balance - amount < 0){
+			throw new RuntimeException("Insufficient balance.");
+		}
+		else{
+			balance -= amount;
+		}
+	}
+
+	public void loanLimitChange(double amount){
+		if(amount < 0){
+			throw new RuntimeException("Loan limit cannot be negative.");
 		}
 
-		this.avaibleLoan = avaibleLoan;
+		double usedLoan = loanLimit - availableLoan;
+		
+		if(amount < availableLoan){
+			throw new IllegalArgumentException("Loan limit cannot be lower than the amount already used.");
+		}
+
+		loanLimit = amount;
+		availableLoan = amount - usedLoan;
+	}
+
+	public void loan(double amount){
+		if(amount <= 0){
+			throw new RuntimeException("It impossible to loan a negative amount.");
+		}
+		else if(amount > loanLimit || amount > availableLoan){
+			throw new RuntimeException("Insufficient limit.");
+		}
+		else{
+			balance += amount;
+			availableLoan -= amount;
+		}
 	}
 
 	public double getBalance() {
 		return balance;
-	}
-
-	public void setBalance(double balance) {
-		if(balance < 0){
-			throw new RuntimeException("Invalid withdraw amount");
-		}
-		this.balance = balance;
 	}
 }
