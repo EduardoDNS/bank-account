@@ -1,20 +1,23 @@
 package model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Account {
 
-	private double balance;
-	private double loanLimit;
-	private double availableLoan;
+	private BigDecimal balance = BigDecimal.ZERO;
+	private BigDecimal loanLimit = BigDecimal.ZERO;
+	private BigDecimal availableLoan = BigDecimal.ZERO;
 	private final int id;
 
-	public Account(int id, double loanLimit, double balance) {
+	public Account(int id, BigDecimal loanLimit, BigDecimal balance) {
 		this.id = id;
-		if(balance < 0){
+		if(balance.compareTo(BigDecimal.ZERO) < 0){
 			throw new IllegalArgumentException("It impossible to create an account with negative balance.");
 		}else{
-			this.balance = balance;
+			this.balance = this.balance.add(balance);
 		}
-		if(loanLimit < 0){
+		if(loanLimit.compareTo(BigDecimal.ZERO) < 0){
 			throw new IllegalArgumentException("It impossible to create an account with negative loan limit.");
 		}else{
 			this.loanLimit = loanLimit;
@@ -26,11 +29,11 @@ public class Account {
 		return id;
 	}
 
-	public double getLoanLimit() {
+	public BigDecimal getLoanLimit() {
 		return loanLimit;
 	}
 
-	public double getAvailableLoan() {
+	public BigDecimal getAvailableLoan() {
 		return availableLoan;
 	}
 
