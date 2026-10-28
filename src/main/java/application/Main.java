@@ -1,5 +1,6 @@
 package application;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -32,14 +33,19 @@ public class Main {
 			if(0 <= choice && choice <= 6) {
 				switch (choice) {
 					case 1:
-						System.out.print("Loan size: ");
-						double loanSize = Double.parseDouble(scan.nextLine());
-						System.out.print("Initial balance: ");
-						double initialBalance = Double.parseDouble(scan.nextLine());
 						try {
+							System.out.print("Loan size: ");
+							BigDecimal loanSize = new BigDecimal(scan.nextLine());
+
+							System.out.print("Initial balance: ");
+							BigDecimal initialBalance = new BigDecimal(scan.nextLine());
+
 							accountService.createAccount(loanSize, initialBalance);
-							System.out.printf("Account ID: %d%n", accountService.getNextId()-1);
-						} catch (RuntimeException e) {
+							System.out.printf("Account ID: %d%n", accountService.getNextId() - 1);
+
+						} catch (NumberFormatException e) {
+							System.out.println("Invalid value. Enter a valid decimal number.");
+						} catch (IllegalArgumentException e) {
 							System.out.println(e.getMessage());
 						}
 						break;
@@ -49,10 +55,12 @@ public class Main {
 							System.out.print("Enter ID: ");
 							int id = Integer.parseInt(scan.nextLine());
 							System.out.print("Amount to deposit: ");
-							double amount = Double.parseDouble(scan.nextLine());
+							BigDecimal amount = new BigDecimal(scan.nextLine());
 							accountService.deposit(id, amount);
 							System.out.println("Deposited");
-						} catch (RuntimeException e) {
+						} catch (NumberFormatException e){
+							System.out.println("Invalid value. Enter a valid decimal number.");
+						} catch (IllegalArgumentException e) {
 							System.out.println(e.getMessage());
 						}
 						break;
@@ -62,10 +70,12 @@ public class Main {
 							System.out.print("Enter ID: ");
 							int id = Integer.parseInt(scan.nextLine());
 							System.out.print("Amount to withdraw: ");
-							double amount = Double.parseDouble(scan.nextLine());
+							BigDecimal amount = new BigDecimal(scan.nextLine());
 							accountService.withdraw(id, amount);
 							System.out.println("Withdrawal");
-						} catch (RuntimeException e) {
+						} catch (NumberFormatException e){
+							System.out.println("Invalid value. Enter a valid decimal number.");
+						} catch (IllegalArgumentException e) {
 							System.out.println(e.getMessage());
 						}
 						break;
@@ -77,10 +87,12 @@ public class Main {
 							System.out.print("Enter the ID that will receive the amount: ");
 							int id2 = Integer.parseInt(scan.nextLine());
 							System.out.print("Amount to transfer: ");
-							double amount = Double.parseDouble(scan.nextLine());
+							BigDecimal amount = new BigDecimal(scan.nextLine());
 							accountService.transfer(id1, id2, amount);
 							System.out.println("transferred");
-						} catch (RuntimeException e) {
+						} catch (NumberFormatException e){
+							System.out.println("Invalid value. Enter a valid decimal number.");
+						} catch (IllegalArgumentException e) {
 							System.out.println(e.getMessage());
 						}
 						break;
@@ -90,10 +102,12 @@ public class Main {
 							System.out.print("Enter ID: ");
 							int id = Integer.parseInt(scan.nextLine());
 							System.out.print("Amount to loan: ");
-							double amount = Double.parseDouble(scan.nextLine());
+							BigDecimal amount = new BigDecimal(scan.nextLine());
 							accountService.loan(id, amount);
 							System.out.println("Borrowed");
-						} catch (RuntimeException e) {
+						} catch (NumberFormatException e){
+							System.out.println("Invalid value. Enter a valid decimal number.");
+						} catch (IllegalArgumentException e) {
 							System.out.println(e.getMessage());
 						}
 						break;
@@ -104,7 +118,7 @@ public class Main {
 							int id = Integer.parseInt(scan.nextLine());
 							accountService.delete(id);
 							System.out.println("Account deleted");
-						} catch (RuntimeException e) {
+						} catch (IllegalArgumentException e) {
 							System.out.println(e.getMessage());
 						}
 						break;

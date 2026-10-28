@@ -1,5 +1,6 @@
 package service;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ public class AccountService {
 
 	private Map<Integer, Account> accounts = new HashMap<>();
 	
-	public void createAccount(double loan, double initialBalance) {
+	public void createAccount(BigDecimal loan, BigDecimal initialBalance) {
 		accounts.put(nextId, new Account(nextId, loan, initialBalance));
 
 		nextId++;
@@ -27,10 +28,10 @@ public class AccountService {
 		return account;
 	}
 
-	public void deposit(int id, double amount) {
+	public void deposit(int id, BigDecimal amount) {
 		Account account = getIdOrThrow(id);
 
-		if (amount <= 0){
+		if (amount.compareTo(BigDecimal.ZERO) <= 0){
 			throw new IllegalArgumentException("Negative balance.");
 		}
 
@@ -38,14 +39,14 @@ public class AccountService {
 
 	}
 
-	public void withdraw(int id, double amount){
+	public void withdraw(int id, BigDecimal amount){
 		Account account = getIdOrThrow(id);
 
-		if (amount <= 0){
+		if (amount.compareTo(BigDecimal.ZERO) <= 0){
 			throw new IllegalArgumentException("Valor invalido.");
 		}
 
-		if (account.getBalance() < amount) {
+		if (account.getBalance().compareTo(amount) < 0) {
 			throw new IllegalArgumentException("Saldo insuficiente.");
 		}
 
@@ -53,7 +54,7 @@ public class AccountService {
 
 	}
 
-	public void transfer(int fromId, int toId, double amount) {
+	public void transfer(int fromId, int toId, BigDecimal amount) {
 		if (fromId == toId) {
 			throw new IllegalArgumentException("Impossivel transferir para a mesma conta.");
 		}
@@ -65,11 +66,11 @@ public class AccountService {
 		Account from = accounts.get(fromId);
 		Account to = accounts.get(toId);
 
-		if (amount <= 0){
+		if (amount.compareTo(BigDecimal.ZERO) <= 0){
 			throw new IllegalArgumentException("Valor invalido.");
 		}
 
-		if (from.getBalance() < amount) {
+		if (from.getBalance().compareTo(amount) < 0) {
 			throw new IllegalArgumentException("Saldo insuficiente.");
 		}
 
@@ -77,18 +78,18 @@ public class AccountService {
 		to.deposit(amount);
 	}
 
-	public void loan(int id, double loan) {
+	public void loan(int id, BigDecimal loan) {
 		Account account = getIdOrThrow(id);
 
-		if (loan <= 0) {
+		if (loan.compareTo(BigDecimal.ZERO) <= 0) {
 			throw new IllegalArgumentException("Invalid amount.");
 		}
 
-		if (account.getLoanLimit() < loan) {
+		if (account.getLoanLimit().compareTo(loan) < 0) {
 			throw new IllegalArgumentException("Loan exceeds limit.");
 		}
 
-		if (account.getAvailableLoan() < loan){
+		if (account.getAvailableLoan().compareTo(loan) < 0){
 			throw new IllegalArgumentException("Loan exceeds the available limit.");
 		}
 

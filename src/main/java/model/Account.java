@@ -1,20 +1,22 @@
 package model;
 
+import java.math.BigDecimal;
+
 public class Account {
 
-	private double balance;
-	private double loanLimit;
-	private double availableLoan;
+	private BigDecimal balance = BigDecimal.ZERO;
+	private BigDecimal loanLimit = BigDecimal.ZERO;
+	private BigDecimal availableLoan = BigDecimal.ZERO;
 	private final int id;
 
-	public Account(int id, double loanLimit, double balance) {
+	public Account(int id, BigDecimal loanLimit, BigDecimal balance) {
 		this.id = id;
-		if(balance < 0){
+		if(balance.compareTo(BigDecimal.ZERO) < 0){
 			throw new IllegalArgumentException("It impossible to create an account with negative balance.");
 		}else{
-			this.balance = balance;
+			this.balance = this.balance.add(balance);
 		}
-		if(loanLimit < 0){
+		if(loanLimit.compareTo(BigDecimal.ZERO) < 0){
 			throw new IllegalArgumentException("It impossible to create an account with negative loan limit.");
 		}else{
 			this.loanLimit = loanLimit;
@@ -26,64 +28,64 @@ public class Account {
 		return id;
 	}
 
-	public double getLoanLimit() {
+	public BigDecimal getLoanLimit() {
 		return loanLimit;
 	}
 
-	public double getAvailableLoan() {
+	public BigDecimal getAvailableLoan() {
 		return availableLoan;
 	}
 
-	public void deposit(double amount){
-		if(amount <= 0){
+	public void deposit(BigDecimal amount){
+		if(amount.compareTo(BigDecimal.ZERO) <= 0){
 			throw new IllegalArgumentException("It impossible to deposit a negative amount.");
 		}
 		else{
-			balance += amount;
+			balance = balance.add(amount);
 		}
 	}
 
-	public void withdraw(double amount){
-		if(amount <= 0){
+	public void withdraw(BigDecimal amount){
+		if(amount.compareTo(BigDecimal.ZERO) <= 0){
 			throw new IllegalArgumentException("It impossible to withdrawal a negative amount.");
 		}
-		else if(balance - amount < 0){
+		else if(balance.subtract(amount).compareTo(BigDecimal.ZERO) < 0){
 			throw new IllegalArgumentException("Insufficient balance.");
 		}
 		else{
-			balance -= amount;
+			balance = balance.subtract(amount);
 		}
 	}
 
-	public void loanLimitChange(double amount){
-		if(amount < 0){
+	public void loanLimitChange(BigDecimal amount){
+		if(amount.compareTo(BigDecimal.ZERO) < 0){
 			throw new IllegalArgumentException("Loan limit cannot be negative.");
 		}
 
-		double usedLoan = loanLimit - availableLoan;
+		BigDecimal usedLoan = loanLimit.subtract(availableLoan);
 		
-		if(amount < availableLoan){
+		if(amount.compareTo(availableLoan) < 0){
 			throw new IllegalArgumentException("Loan limit cannot be lower than the amount already used.");
 		}
 
 		loanLimit = amount;
-		availableLoan = amount - usedLoan;
+		availableLoan = amount.subtract(usedLoan);
 	}
 
-	public void loan(double amount){
-		if(amount <= 0){
+	public void loan(BigDecimal amount){
+		if(amount.compareTo(BigDecimal.ZERO) <= 0){
 			throw new IllegalArgumentException("It impossible to loan a negative amount.");
 		}
-		else if(amount > loanLimit || amount > availableLoan){
+		else if(amount.compareTo(loanLimit) > 0 || amount.compareTo(availableLoan) > 0){
 			throw new IllegalArgumentException("Insufficient limit.");
 		}
 		else{
-			balance += amount;
-			availableLoan -= amount;
+			balance = balance.add(amount);
+			availableLoan = availableLoan.subtract(amount);
 		}
 	}
 
-	public double getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
 }
