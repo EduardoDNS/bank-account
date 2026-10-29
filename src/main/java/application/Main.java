@@ -3,8 +3,6 @@ package application;
 import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Scanner;
-
-import model.Account;
 import service.AccountService;
 
 public class Main {
@@ -34,6 +32,14 @@ public class Main {
 				switch (choice) {
 					case 1:
 						try {
+							System.out.println("Name: ");
+							String name = scan.nextLine();
+
+							System.out.println("CPF: ");
+							String cpf = scan.next();
+
+							 
+
 							System.out.print("Loan size: ");
 							BigDecimal loanSize = new BigDecimal(scan.nextLine());
 
@@ -128,5 +134,7 @@ public class Main {
 				System.out.println("Entrada inválida");
 			}
 		}
+
+		scan.close();
 	}
 }

@@ -12,8 +12,8 @@ public class AccountService {
 
 	private Map<Integer, Account> accounts = new HashMap<>();
 	
-	public void createAccount(BigDecimal loan, BigDecimal initialBalance) {
-		accounts.put(nextId, new Account(nextId, loan, initialBalance));
+	public void createAccount(Client client, BigDecimal loan, BigDecimal initialBalance) {
+		accounts.put(nextId, new Account(client, nextId, loan, initialBalance));
 
 		nextId++;
 	}
@@ -106,7 +106,7 @@ public class AccountService {
 	private Account getIdOrThrow(int id) {
 		Account account = accounts.get(id);
 		if (account == null) {
-			throw new IllegalArgumentException("Conta não encontrada.");
+			throw new IllegalArgumentException("Account not found.");
 		}
 		return account;
 	}
