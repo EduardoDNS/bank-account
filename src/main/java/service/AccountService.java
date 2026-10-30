@@ -33,6 +33,8 @@ public class AccountService {
 	}
 
 	public Client getAccountClient(int id){
+		getIdOrThrow(id);
+
 		return accounts.get(id).getClient();
 	}
 
