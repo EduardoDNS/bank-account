@@ -11,7 +11,7 @@ public class AccountService {
 
 	private int nextId = 1;
 
-	private Map<Integer, Account> accounts = new HashMap<>();
+	private final Map<Integer, Account> accounts = new HashMap<>();
 	
 	public Account createAccount(Client client, BigDecimal loan, BigDecimal initialBalance) {
 		Account account = new Account(client, nextId, loan, initialBalance);
@@ -27,9 +27,7 @@ public class AccountService {
 	}
 
 	public Account getAccount(int id) {
-		getIdOrThrow(id);
-
-		return accounts.get(id);
+		return getIdOrThrow(id);
 	}
 
 	public Client getAccountClient(int id){

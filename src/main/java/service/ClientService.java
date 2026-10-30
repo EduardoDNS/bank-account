@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class ClientService {
 
-    private Map<String, Client> clients = new HashMap<>();
+    private final Map<String, Client> clients = new HashMap<>();
 
     public Client registerClient(String name, String cpf){
         checkCpfAvailability(cpf);
