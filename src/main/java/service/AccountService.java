@@ -1,5 +1,6 @@
 package service;
 
+import model.Client;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +13,13 @@ public class AccountService {
 
 	private Map<Integer, Account> accounts = new HashMap<>();
 	
-	public void createAccount(Client client, BigDecimal loan, BigDecimal initialBalance) {
-		accounts.put(nextId, new Account(client, nextId, loan, initialBalance));
+	public Account createAccount(Client client, BigDecimal loan, BigDecimal initialBalance) {
+		Account account = new Account(client, nextId, loan, initialBalance);
+		accounts.put(nextId, account);
 
 		nextId++;
+
+		return account;
 	}
 
 	public int getNextId() {
@@ -23,9 +27,13 @@ public class AccountService {
 	}
 
 	public Account getAccount(int id) {
-		Account account = getIdOrThrow(id);
+		getIdOrThrow(id);
 
-		return account;
+		return accounts.get(id);
+	}
+
+	public Client getAccountClient(int id){
+		return accounts.get(id).getClient();
 	}
 
 	public void deposit(int id, BigDecimal amount) {
