@@ -43,15 +43,15 @@ public class Main {
 							System.out.print("CPF: ");
 							String cpf = scan.nextLine();
 
-							Client client = clientService.registerClient(name, cpf);
-
 							System.out.print("Initial balance: ");
 							BigDecimal initialBalance = new BigDecimal(scan.nextLine());
 
 							System.out.print("Loan size: ");
 							BigDecimal loanSize = new BigDecimal(scan.nextLine());
 
+							Client client = clientService.registerClient(name, cpf);
 							Account account = accountService.createAccount(client, loanSize, initialBalance);
+
 							System.out.printf("%n|----------------------|%n" +
 											"    ACCOUNT CREATED!    %n" +
 											"|----------------------|" +
