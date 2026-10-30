@@ -31,7 +31,12 @@ public class Main {
 			System.out.println("6 - delete account");
 			System.out.println("0 - quit");
 
-			choice = Integer.parseInt(scan.nextLine());
+			try {
+				choice = Integer.parseInt(scan.nextLine());
+            }
+			catch (NumberFormatException e){
+				System.out.println("Invalid enter.");
+			}
 
 			if(0 <= choice && choice <= 6) {
 				switch (choice) {
@@ -156,9 +161,6 @@ public class Main {
 						}
 						break;
 				}
-			}
-			else{
-				System.out.println("Entrada inválida");
 			}
 		}
 		scan.close();
