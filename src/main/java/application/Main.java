@@ -36,6 +36,7 @@ public class Main {
             }
 			catch (NumberFormatException e){
 				System.out.println("Invalid enter.");
+				choice = -1;
 			}
 
 			if(0 <= choice && choice <= 6) {
