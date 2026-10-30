@@ -22,7 +22,7 @@ public class Main {
 		int choice = 1;
 		
 		while(choice != 0) {
-			System.out.printf("%nWhat would you like to do? ");
+			System.out.printf("%nWhat would you like to do?%n");
 			System.out.println("1 - create account");
 			System.out.println("2 - deposit");
 			System.out.println("3 - withdraw");
