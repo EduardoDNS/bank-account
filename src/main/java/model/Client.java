@@ -6,10 +6,10 @@ public class Client {
 	private final String cpf;
 	
 	public Client(String name, String cpf) {
-		if(name == null) {
+		if(name == null || name.isBlank()) {
 			throw new IllegalArgumentException("Invalid name enter.");
 		}
-		if(cpf == null){
+		if(cpf == null || cpf.isBlank()){
 			throw new IllegalArgumentException("Invalid CPF enter");
 		}
 		this.name = name;

@@ -31,9 +31,7 @@ public class AccountService {
 	}
 
 	public Client getAccountClient(int id){
-		getIdOrThrow(id);
-
-		return accounts.get(id).getClient();
+		return getIdOrThrow(id).getClient();
 	}
 
 	public void deposit(int id, BigDecimal amount) {
