@@ -100,7 +100,7 @@ public class AccountService {
 		if (account.getAvailableLoan().compareTo(loan) < 0){
 			throw new IllegalArgumentException("Loan exceeds the available limit.");
 		}
-		
+
 		account.loan(loan);
 	}
 

@@ -69,7 +69,7 @@ public class Account {
 
 		BigDecimal usedLoan = loanLimit.subtract(availableLoan);
 		
-		if(amount.compareTo(availableLoan) < 0){
+		if(amount.compareTo(usedLoan) < 0){
 			throw new IllegalArgumentException("Loan limit cannot be lower than the amount already used.");
 		}
 
