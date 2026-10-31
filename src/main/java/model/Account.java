@@ -7,9 +7,10 @@ public class Account {
 	private BigDecimal balance = BigDecimal.ZERO;
 	private BigDecimal loanLimit = BigDecimal.ZERO;
 	private BigDecimal availableLoan = BigDecimal.ZERO;
+	private final Client client;
 	private final int id;
 
-	public Account(int id, BigDecimal loanLimit, BigDecimal balance) {
+	public Account(Client client, int id, BigDecimal loanLimit, BigDecimal balance) {
 		this.id = id;
 		if(balance.compareTo(BigDecimal.ZERO) < 0){
 			throw new IllegalArgumentException("It impossible to create an account with negative balance.");
@@ -18,10 +19,14 @@ public class Account {
 		}
 		if(loanLimit.compareTo(BigDecimal.ZERO) < 0){
 			throw new IllegalArgumentException("It impossible to create an account with negative loan limit.");
-		}else{
-			this.loanLimit = loanLimit;
-			availableLoan = loanLimit;
 		}
+		this.loanLimit = loanLimit;
+		availableLoan = loanLimit;
+		this.client = client;
+	}
+
+	public Client getClient(){
+		return client;
 	}
 
 	public int getId(){
@@ -64,7 +69,7 @@ public class Account {
 
 		BigDecimal usedLoan = loanLimit.subtract(availableLoan);
 		
-		if(amount.compareTo(availableLoan) < 0){
+		if(amount.compareTo(usedLoan) < 0){
 			throw new IllegalArgumentException("Loan limit cannot be lower than the amount already used.");
 		}
 
@@ -88,4 +93,5 @@ public class Account {
 	public BigDecimal getBalance() {
 		return balance;
 	}
+
 }

@@ -3,28 +3,25 @@ package model;
 public class Client {
 	
 	private final String name;
-	private final String id;
-	private double salary;
+	private final String cpf;
 	
-	public Client(String name, String id, double salary) {
+	public Client(String name, String cpf) {
+		if(name == null || name.isBlank()) {
+			throw new IllegalArgumentException("Invalid name enter.");
+		}
+		if(cpf == null || cpf.isBlank()){
+			throw new IllegalArgumentException("Invalid CPF enter");
+		}
 		this.name = name;
-		this.id = id;
-		this.salary = salary;
-	}
+		this.cpf = cpf;
 
-	public double getSalary() {
-		return salary;
-	}
-
-	public void setSalary(double salary) {
-		this.salary = salary;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public String getId() {
-		return id;
+	public String getCpf() {
+		return cpf;
 	}
 }
