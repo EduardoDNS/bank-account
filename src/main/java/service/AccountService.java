@@ -49,11 +49,11 @@ public class AccountService {
 		Account account = getIdOrThrow(id);
 
 		if (amount.compareTo(BigDecimal.ZERO) <= 0){
-			throw new IllegalArgumentException("Valor invalido.");
+			throw new IllegalArgumentException("Invalid amount.");
 		}
 
 		if (account.getBalance().compareTo(amount) < 0) {
-			throw new IllegalArgumentException("Saldo insuficiente.");
+			throw new IllegalArgumentException("Insufficient balance.");
 		}
 
 		account.withdraw(amount);
@@ -62,22 +62,22 @@ public class AccountService {
 
 	public void transfer(int fromId, int toId, BigDecimal amount) {
 		if (fromId == toId) {
-			throw new IllegalArgumentException("Impossivel transferir para a mesma conta.");
+			throw new IllegalArgumentException("Impossible to transfer to the same account.");
 		}
 
 		if (accounts.get(fromId) == null ||  accounts.get(toId) == null) {
-			throw new IllegalArgumentException("Conta não encontrada.");
+			throw new IllegalArgumentException("Account cannot found.");
 		}
 
 		Account from = accounts.get(fromId);
 		Account to = accounts.get(toId);
 
 		if (amount.compareTo(BigDecimal.ZERO) <= 0){
-			throw new IllegalArgumentException("Valor invalido.");
+			throw new IllegalArgumentException("Invalid amount.");
 		}
 
 		if (from.getBalance().compareTo(amount) < 0) {
-			throw new IllegalArgumentException("Saldo insuficiente.");
+			throw new IllegalArgumentException("Insufficient amount.");
 		}
 
 		from.withdraw(amount);
